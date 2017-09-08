@@ -1,0 +1,8 @@
+src/main/resources/output/*
+target/
+
+### IntelliJ IDEA ###
+.idea
+*.iws
+*.iml
+*.ipr
