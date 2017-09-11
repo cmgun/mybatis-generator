@@ -19,6 +19,7 @@ public class Constant {
     private static final String CONFIG_PATH = "src/main/resources/config/";
     public static final String JDBC_CONFIG_PATH = CONFIG_PATH + "jdbc.properties";
     public static final String PROJECT_CONFIG_PATH = CONFIG_PATH + "project.properties";
+    public static final String GENERATOR_CONFIG_PATH = CONFIG_PATH + "generator.properties";
 
     public static final String TEMPLATE_PATH = "src/main/resources/template/";
     public static final String MAPPER_TEMPLATE = "mapper.ftl";

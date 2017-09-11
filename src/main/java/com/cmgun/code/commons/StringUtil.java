@@ -26,6 +26,10 @@ public class StringUtil {
         return str == null || "".equals(str.trim());
     }
 
+    public static boolean isTrue(String flag) {
+        return Boolean.parseBoolean(flag);
+    }
+
     /**
      * 根据分隔符将字符串转成驼峰规则
      *

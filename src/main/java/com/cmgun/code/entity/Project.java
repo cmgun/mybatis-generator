@@ -36,5 +36,9 @@ public class Project {
 
     private String baseServiceImplName;
 
+    private String baseControllerPackage;
+
+    private String baseControllerName;
+
     private String split;
 }

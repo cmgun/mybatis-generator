@@ -103,6 +103,21 @@ public class FreeMarkerUtil {
     }
 
     /**
+     * Controller元数据信息
+     * @param name
+     * @return
+     */
+    private static MetaInfo getControllerMetaInfo(String name) {
+        return MetaInfo.builder()
+                .basePackage(project.getBaseControllerPackage().concat(project.getBaseControllerName()))
+                .baseName(project.getBaseControllerName())
+                .className(name.concat("Controller"))
+                .classPackage(project.getPackageName().concat(".web"))
+                .fileName(name.concat("Controller.java"))
+                .build();
+    }
+
+    /**
      * 生成模板所需的DataModel
      * @return
      */
@@ -136,7 +151,7 @@ public class FreeMarkerUtil {
         dataModel.put("service", getServiceMetaInfo(firstCharUpperName));
         dataModel.put("serviceImpl", getServiceImplMetaInfo(firstCharUpperName));
         // controller info
-
+        dataModel.put("controller", getControllerMetaInfo(firstCharUpperName));
         return dataModel;
     }
 
