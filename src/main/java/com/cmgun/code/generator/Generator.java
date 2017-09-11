@@ -46,6 +46,8 @@ public class Generator {
             // generate dao
             FreeMarkerUtil.generateTemplate(Constant.TEMPLATE_PATH, Constant.DAO_TEMPLATE, Constant.OUTPUT_DAO_PATH, ((MetaInfo) dataModol.get("dao")).getFileName(), dataModol);
             // generate service
+            FreeMarkerUtil.generateTemplate(Constant.TEMPLATE_PATH, Constant.SERVICE_TEMPLATE, Constant.OUTPUT_SERVICE_PATH, ((MetaInfo) dataModol.get("service")).getFileName(), dataModol);
+            FreeMarkerUtil.generateTemplate(Constant.TEMPLATE_PATH, Constant.SERVICEIMPL_TEMPLATE, Constant.OUTPUT_SERVICEIMPL_PATH, ((MetaInfo) dataModol.get("serviceImpl")).getFileName(), dataModol);
             // generate controller
         }
 

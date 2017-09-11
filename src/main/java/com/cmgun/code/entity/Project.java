@@ -30,5 +30,11 @@ public class Project {
 
     private String baseDaoName;
 
+    private String baseServicePackage;
+
+    private String baseServiceName;
+
+    private String baseServiceImplName;
+
     private String split;
 }

@@ -69,7 +69,36 @@ public class FreeMarkerUtil {
                 .baseName(project.getBaseDaoName())
                 .className(name.concat("Dao"))
                 .classPackage(project.getPackageName().concat(".dao"))
-                .fileName(name.concat(".java"))
+                .fileName(name.concat("Dao.java"))
+                .build();
+    }
+
+    /**
+     * Service元数据信息
+     * @param name
+     * @return
+     */
+    private static MetaInfo getServiceMetaInfo(String name) {
+        return MetaInfo.builder()
+                .basePackage(project.getBaseServicePackage().concat(project.getBaseServiceName()))
+                .baseName(project.getBaseServiceName())
+                .className(name.concat("Service"))
+                .classPackage(project.getPackageName().concat(".service"))
+                .fileName(name.concat("Service.java"))
+                .build();
+    }
+
+    /**
+     * ServiceImpl元数据信息
+     * @param name
+     * @return
+     */
+    private static MetaInfo getServiceImplMetaInfo(String name) {
+        return MetaInfo.builder()
+                .baseName(project.getBaseServiceImplName())
+                .className(name.concat("ServiceImpl"))
+                .classPackage(project.getPackageName().concat(".service.impl"))
+                .fileName(name.concat("ServiceImpl.java"))
                 .build();
     }
 
@@ -104,7 +133,10 @@ public class FreeMarkerUtil {
         // dao info
         dataModel.put("dao", getDaoMetaInfo(firstCharUpperName));
         // service info
+        dataModel.put("service", getServiceMetaInfo(firstCharUpperName));
+        dataModel.put("serviceImpl", getServiceImplMetaInfo(firstCharUpperName));
         // controller info
+
         return dataModel;
     }
 
