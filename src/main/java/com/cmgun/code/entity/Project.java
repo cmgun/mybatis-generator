@@ -20,7 +20,15 @@ public class Project {
 
     private String packageName;
 
+    private String baseEntityPackage;
+
+    private String baseEntityName;
+
     private String entitySuffix;
+
+    private String baseDaoPackage;
+
+    private String baseDaoName;
 
     private String split;
 }

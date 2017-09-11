@@ -98,7 +98,7 @@ public class DBUtil {
     }
 
     /**
-     * 查询指定表的所有列名
+     * 查询指定表的所有列信息
      * @param tableName
      * @return
      */
@@ -110,6 +110,7 @@ public class DBUtil {
                 ColumnInfo info = new ColumnInfo();
                 info.setDbName(resultSet.getString("COLUMN_NAME"));
                 info.setDbType(resultSet.getString("DATA_TYPE"));
+                info.setTodo(resultSet.getString("REMARKS"));
                 columnInfos.add(info);
             }
         } catch (SQLException e) {

@@ -83,12 +83,12 @@ public class StringUtil {
      */
     enum ColumnType {
         BIGINT(Types.BIGINT, "java.math.BigInteger"),
-        BIT(Types.BIT, "Byte"),
-        SMALLINT(Types.SMALLINT, "Integer"),
-        INTEGER(Types.INTEGER, "INTEGER"),
-        FLOAT(Types.FLOAT, "Float"),
-        DOUBLE(Types.DOUBLE, "Double"),
-        NUMERIC(Types.NUMERIC, "Float"),
+        BIT(Types.BIT, "byte"),
+        SMALLINT(Types.SMALLINT, "int"),
+        INTEGER(Types.INTEGER, "int"),
+        FLOAT(Types.FLOAT, "float"),
+        DOUBLE(Types.DOUBLE, "double"),
+        NUMERIC(Types.NUMERIC, "float"),
         DECIMAL(Types.DECIMAL, "java.math.BigDecimal"),
         CHAR(Types.CHAR, "String"),
         VARCHAR(Types.VARCHAR, "String"),

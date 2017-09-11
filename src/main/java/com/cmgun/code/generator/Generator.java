@@ -12,6 +12,7 @@ import com.cmgun.code.commons.DBUtil;
 import com.cmgun.code.commons.FreeMarkerUtil;
 import com.cmgun.code.entity.DataSource;
 import com.cmgun.code.commons.PropertiesUtil;
+import com.cmgun.code.entity.MetaInfo;
 import com.cmgun.code.entity.Project;
 
 import java.util.List;
@@ -39,9 +40,11 @@ public class Generator {
         for (String tableName: tablesNames) {
             Map<String, Object> dataModol = FreeMarkerUtil.getDataModel(tableName);
             // generate mapper
-            FreeMarkerUtil.generateTemplate(Constant.TEMPLATE_PATH, Constant.MAPPER_TEMPLATE, Constant.OUTPUT_MAPPER_PATH, (String) dataModol.get("mapperName"), dataModol);
+            FreeMarkerUtil.generateTemplate(Constant.TEMPLATE_PATH, Constant.MAPPER_TEMPLATE, Constant.OUTPUT_MAPPER_PATH, ((MetaInfo) dataModol.get("mapper")).getFileName(), dataModol);
             // generate entity
+            FreeMarkerUtil.generateTemplate(Constant.TEMPLATE_PATH, Constant.ENTITY_TEMPLATE, Constant.OUTPUT_ENTITY_PATH, ((MetaInfo) dataModol.get("entity")).getFileName(), dataModol);
             // generate dao
+            FreeMarkerUtil.generateTemplate(Constant.TEMPLATE_PATH, Constant.DAO_TEMPLATE, Constant.OUTPUT_DAO_PATH, ((MetaInfo) dataModol.get("dao")).getFileName(), dataModol);
             // generate service
             // generate controller
         }

@@ -25,4 +25,6 @@ public class ColumnInfo {
     private String javaName;
 
     private String javaType;
+
+    private String todo;
 }

@@ -8,6 +8,7 @@ package com.cmgun.code.commons;/*
  */
 
 import com.cmgun.code.entity.ColumnInfo;
+import com.cmgun.code.entity.MetaInfo;
 import com.cmgun.code.entity.Project;
 import freemarker.template.Configuration;
 import freemarker.template.Template;
@@ -31,6 +32,48 @@ public class FreeMarkerUtil {
     private static Project project;
 
     /**
+     * 实体类元数据信息
+     * @param name entity名称
+     *
+     * @return
+     */
+    private static MetaInfo getEntityMetaInfo(String name) {
+        return MetaInfo.builder()
+                .baseName(project.getBaseEntityName())
+                .basePackage(project.getBaseEntityPackage().concat(project.getBaseEntityName()))
+                .className(name.concat(StringUtil.isEmpty(project.getEntitySuffix()) ? "" : project.getEntitySuffix()))
+                .classPackage(project.getPackageName().concat(".entity"))
+                .fileName(name.concat(StringUtil.isEmpty(project.getEntitySuffix()) ? "" : project.getEntitySuffix()).concat(".java"))
+                .build();
+    }
+
+    /**
+     * mapper元数据信息
+     * @param name mapper名称
+     * @return
+     */
+    private static MetaInfo getMapperMetaInfo(String name) {
+        return MetaInfo.builder()
+                .fileName(name.concat(".xml"))
+                .build();
+    }
+
+    /**
+     * Dao元数据信息
+     * @param name
+     * @return
+     */
+    private static MetaInfo getDaoMetaInfo(String name) {
+        return MetaInfo.builder()
+                .basePackage(project.getBaseDaoPackage().concat(project.getBaseDaoName()))
+                .baseName(project.getBaseDaoName())
+                .className(name.concat("Dao"))
+                .classPackage(project.getPackageName().concat(".dao"))
+                .fileName(name.concat(".java"))
+                .build();
+    }
+
+    /**
      * 生成模板所需的DataModel
      * @return
      */
@@ -41,13 +84,13 @@ public class FreeMarkerUtil {
         // table primary key
         List<ColumnInfo> primaryKeys = DBUtil.getPrimaryKeys(tableName);
         for (ColumnInfo columnInfo: primaryKeys) {
-            columnInfo.setJavaName(StringUtil.toHumpRule(columnInfo.getDbName(), project.getEntitySuffix()));
+            columnInfo.setJavaName(StringUtil.toHumpRule(columnInfo.getDbName(), project.getSplit()));
         }
         dataModel.put("primaryKeys", primaryKeys);
         // columns info
         List<ColumnInfo> columns = DBUtil.getColumns(tableName);
         for (ColumnInfo columnInfo: columns) {
-            columnInfo.setJavaName(StringUtil.toHumpRule(columnInfo.getDbName(), project.getEntitySuffix()));
+            columnInfo.setJavaName(StringUtil.toHumpRule(columnInfo.getDbName(), project.getSplit()));
             columnInfo.setJavaType(StringUtil.toJavaType(columnInfo.getDbType()));
         }
         dataModel.put("columns", columns);
@@ -55,28 +98,13 @@ public class FreeMarkerUtil {
         String humpName = StringUtil.toHumpRule(tableName, project.getSplit());
         String firstCharUpperName = StringUtil.upperFirstChar(humpName);
         // entity info
-        String entityPackage = project.getPackageName().concat(".entity");
-        String entityName = firstCharUpperName.concat(StringUtil.isEmpty(project.getEntitySuffix()) ? "" : project.getEntitySuffix());
-        dataModel.put("entityPackage", entityPackage);
-        dataModel.put("entityName", entityName);
+        dataModel.put("entity", getEntityMetaInfo(firstCharUpperName));
         // mapper info
-        String mapperName = firstCharUpperName.concat(".xml");
-        dataModel.put("mapperName", mapperName);
+        dataModel.put("mapper", getMapperMetaInfo(firstCharUpperName));
         // dao info
-        String daoPackage = project.getPackageName().concat(".dao");
-        String daoName = firstCharUpperName.concat("Dao");
-        dataModel.put("daoPackage", daoPackage);
-        dataModel.put("daoName", daoName);
+        dataModel.put("dao", getDaoMetaInfo(firstCharUpperName));
         // service info
-        String servicePackage = project.getPackageName().concat(".service");
-        String serviceName = firstCharUpperName.concat("Service");
-        dataModel.put("servicePackage", servicePackage);
-        dataModel.put("serviceName", serviceName);
         // controller info
-        String controllerPackage = project.getPackageName().concat(".controller");
-        String controllerName = firstCharUpperName.concat("Controller");
-        dataModel.put("controllerPackage", controllerPackage);
-        dataModel.put("controllerName", controllerName);
         return dataModel;
     }
 

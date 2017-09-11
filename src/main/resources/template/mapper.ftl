@@ -14,7 +14,7 @@
         from ${tableName}
     </sql>
 
-    <insert id="save" parameterType="${entityPackage}.${entityName}">
+    <insert id="save" parameterType="${entity.classPackage}.${entity.className}">
         insert into ${tableName}(
     <#list columns as result>
         <#if result_index == 0>
@@ -34,7 +34,7 @@
     </#list>
     </insert>
 
-    <update id="update" parameterType="${entityPackage}.${entityName}">
+    <update id="update" parameterType="${entity.classPackage}.${entity.className}">
         update ${tableName}
         set(
     <#list columns as result>
@@ -66,7 +66,7 @@
     </#list>
     </delete>
 
-    <select id="findById" parameterType="map" resultType="${entityPackage}.${entityName}">
+    <select id="findById" parameterType="map" resultType="${entity.classPackage}.${entity.className}">
         <include refid="query"/>
         where
     <#list primaryKeys as result>
@@ -78,7 +78,7 @@
     </#list>
     </select>
 
-    <select id="find" resultType="${entityPackage}.${entityName}">
+    <select id="find" resultType="${entity.classPackage}.${entity.className}">
         <include refid="query"/>
         <where>
             <if test="_parameter != null">
